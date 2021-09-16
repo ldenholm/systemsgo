@@ -26,3 +26,8 @@ func (h *Hello) ServeHTTP(rw http.ResponseWriter, r *http.Request) {
 	// write the response
 	fmt.Fprintf(rw, "Hello %s", b)
 }
+
+func NewHello(l *log.Logger) *Hello {
+	// return a pointer to the newly created object
+	return &Hello{l}
+}
