@@ -2,7 +2,9 @@
 Ongoing project featuring microservice architecture, event sourcing pattern, NATS streaming
 
 ##Project Structure
+
 |   docker-compose.yml
+|   readme.md
 |
 \---product-service
     |   dockerfile
