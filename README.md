@@ -2,7 +2,7 @@
 Ongoing project featuring microservice architecture, event sourcing pattern, NATS streaming
 
 ##Project Structure
-
+```
 |   docker-compose.yml
 |   readme.md
 |
@@ -19,3 +19,4 @@ Ongoing project featuring microservice architecture, event sourcing pattern, NAT
             default.go
             goodbye.go
             product.go
+```
