@@ -1,0 +1,8 @@
+github.com/dave/jennifer v1.4.1 h1:XyqG6cn5RQsTj3qlWQTKlRGAyrTcsk1kUmWdZBzRjDw=
+github.com/dave/jennifer v1.4.1/go.mod h1:7jEdnm+qBcxl8PC0zyp7vxcpSRnzXSt9r39tpTVGlwA=
+github.com/devimteam/microgen v0.9.2 h1:DgHNa4D5dLh722msgEJ3eF5PtECIXweKi60q9RnWCpI=
+github.com/devimteam/microgen v0.9.2/go.mod h1:7d8twFecJuBuE9wjYz0Mn9gQeJCOy07ds59G/YLfNTw=
+github.com/fatih/structtag v1.2.0 h1:/OdNE99OxoI/PqaW/SuSK9uxxT3f/tcSZgon/ssNSx4=
+github.com/fatih/structtag v1.2.0/go.mod h1:mBJUNpUnHmRKrKlQQlmCrh5PuhftFbNv8Ys4/aAZl94=
+github.com/vetcher/go-astra v1.2.0 h1:PimAuC1QDbkzw7tQ26JvTGqXbdeW7xVYfbj87YnXWXw=
+github.com/vetcher/go-astra v1.2.0/go.mod h1:w+tZwvFo3O3gt4c/TGNVzVQZSlEykOJHt75yL/bLXUM=
