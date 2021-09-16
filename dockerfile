@@ -8,7 +8,7 @@ COPY /src/go.mod /
 
 RUN go mod download
 
-COPY /src/*.go ./
+COPY /src ./
 
 RUN go build -o /product-api
 
