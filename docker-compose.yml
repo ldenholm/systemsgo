@@ -7,3 +7,5 @@ services:
       - ./product-api:/usr/src/app
     ports:
       - 5001:80
+
+  # add redis
