@@ -1,6 +1,10 @@
 package data
 
-import "time"
+import (
+	"encoding/json"
+	"io"
+	"time"
+)
 
 // Product struct for API resource
 type Product struct {
@@ -14,14 +18,21 @@ type Product struct {
 	DeletedOn   string  `json:"-"`
 }
 
+type Products []*Product
+
+func (p *Products) ToJSON(w io.Writer) error {
+	encoder := json.NewEncoder(w)
+	return encoder.Encode(p)
+}
+
 // Getter
-func GetProducts() []*Product {
+func GetProducts() Products {
 	return productList
 }
 
 // Sample data
 var productList = []*Product{
-	{
+	&Product{
 		ID:          1,
 		Name:        "Latte",
 		Description: "Frothy milky coffee",
@@ -29,9 +40,8 @@ var productList = []*Product{
 		SKU:         "abc323",
 		CreatedOn:   time.Now().UTC().String(),
 		UpdatedOn:   time.Now().UTC().String(),
-		DeletedOn:   "",
 	},
-	{
+	&Product{
 		ID:          2,
 		Name:        "Espresso",
 		Description: "Short and strong coffee without milk",
@@ -39,6 +49,5 @@ var productList = []*Product{
 		SKU:         "fjd34",
 		CreatedOn:   time.Now().UTC().String(),
 		UpdatedOn:   time.Now().UTC().String(),
-		DeletedOn:   "",
 	},
 }

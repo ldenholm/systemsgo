@@ -7,12 +7,12 @@ import (
 	"net/http"
 )
 
-type Hello struct {
+type Default struct {
 	l *log.Logger
 }
 
-func (h *Hello) ServeHTTP(rw http.ResponseWriter, r *http.Request) {
-	h.l.Println("Handle Hello requests")
+func (h *Default) ServeHTTP(rw http.ResponseWriter, r *http.Request) {
+	h.l.Println("Handle Default requests")
 
 	// read the body
 	b, err := ioutil.ReadAll(r.Body)
@@ -24,10 +24,10 @@ func (h *Hello) ServeHTTP(rw http.ResponseWriter, r *http.Request) {
 	}
 
 	// write the response
-	fmt.Fprintf(rw, "Hello %s", b)
+	fmt.Fprintf(rw, "Uh oh. No endpoint found. %s", b)
 }
 
-func NewHello(l *log.Logger) *Hello {
+func NewDefault(l *log.Logger) *Default {
 	// return a pointer to the newly created object
-	return &Hello{l}
+	return &Default{l}
 }
