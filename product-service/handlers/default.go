@@ -28,6 +28,5 @@ func (h *Default) ServeHTTP(rw http.ResponseWriter, r *http.Request) {
 }
 
 func NewDefault(l *log.Logger) *Default {
-	// return a pointer to the newly created object
 	return &Default{l}
 }

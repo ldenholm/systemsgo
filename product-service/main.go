@@ -8,6 +8,7 @@ import (
 	"os/signal"
 	"time"
 
+	"github.com/gorilla/mux"
 	"github.com/ldenholm/systemsgo/handlers"
 )
 
@@ -17,12 +18,14 @@ func main() {
 	defaultHandler := handlers.NewDefault(l)
 	product := handlers.NewProducts(l)
 
-	// ServeMux
-	sm := http.NewServeMux()
+	// ServeMux provided by Gorilla
+	sm := mux.NewRouter()
+
+	getRouter := sm.Methods("GET").Subrouter()
+	getRouter.HandleFunc("/products", product.GetProducts)
 
 	// Assign Handlers
 	sm.Handle("/", defaultHandler)
-	sm.Handle("/products", product)
 
 	// Create Server
 	server := &http.Server{
