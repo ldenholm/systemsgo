@@ -15,7 +15,7 @@ import (
 func main() {
 
 	l := log.New(os.Stdout, "product-api", log.LstdFlags)
-	//defaultHandler := handlers.NewDefault(l)
+	repo := handlers.NewDbQuery(l)
 	product := handlers.NewProducts(l)
 
 	// ServeMux provided by Gorilla
@@ -24,14 +24,17 @@ func main() {
 	// GET Router
 	getRouter := sm.Methods(http.MethodGet).Subrouter()
 	getRouter.HandleFunc("/products", product.GetProducts)
+	getRouter.HandleFunc("/tables", repo.GetTables)
 
 	// PUT Router
 	putRouter := sm.Methods(http.MethodPut).Subrouter()
 	putRouter.HandleFunc("/{id:[0-9]+}", product.UpdateProducts)
+	putRouter.Use(product.MiddlewareValidateProduct)
 
 	// POST Router
 	postRouter := sm.Methods(http.MethodPost).Subrouter()
 	postRouter.HandleFunc("/", product.AddProduct)
+	postRouter.Use(product.MiddlewareValidateProduct)
 
 	// Assign Handlers
 	//sm.Handle("/", defaultHandler)

@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"context"
 	"log"
 	"net/http"
 	"strconv"
@@ -35,14 +36,11 @@ func (p *Products) GetProducts(rw http.ResponseWriter, req *http.Request) {
 func (p *Products) AddProduct(rw http.ResponseWriter, r *http.Request) {
 	p.logger.Println("Handle POST Product")
 
-	prod := &data.Product{}
+	prod := r.Context().Value(KeyProduct{}).(data.Product)
+	data.AddProduct(&prod)
 
-	err := prod.FromJSON(r.Body)
-	if err != nil {
-		http.Error(rw, "Unable to deserialize json", http.StatusBadRequest)
-	}
+	// Add to dynamodb
 
-	data.AddProduct(prod)
 }
 
 func (p Products) UpdateProducts(rw http.ResponseWriter, r *http.Request) {
@@ -56,14 +54,9 @@ func (p Products) UpdateProducts(rw http.ResponseWriter, r *http.Request) {
 
 	p.logger.Println("Handle PUT Product", id)
 
-	prod := &data.Product{}
+	prod := r.Context().Value(KeyProduct{}).(data.Product)
+	err = data.UpdateProduct(id, &prod)
 
-	err = prod.FromJSON(r.Body)
-	if err != nil {
-		http.Error(rw, "Unable to unmarshal json", http.StatusBadRequest)
-	}
-
-	err = data.UpdateProduct(id, prod)
 	if err == data.ErrProductNotFound {
 		http.Error(rw, "Product not found", http.StatusNotFound)
 		return
@@ -74,3 +67,50 @@ func (p Products) UpdateProducts(rw http.ResponseWriter, r *http.Request) {
 		return
 	}
 }
+
+// Key for context
+type KeyProduct struct {
+}
+
+func (p Products) MiddlewareValidateProduct(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(rw http.ResponseWriter, r *http.Request) {
+		prod := data.Product{}
+
+		err := prod.FromJSON(r.Body)
+		if err != nil {
+			p.logger.Println("[ERROR] deserializing product", err)
+			http.Error(rw, "Error reading product", http.StatusBadRequest)
+			return
+		}
+
+		// add the product to the context
+		ctx := context.WithValue(r.Context(), KeyProduct{}, prod)
+		r = r.WithContext(ctx)
+
+		// Call the next handler, which can be another middleware in the chain, or the final handler.
+		next.ServeHTTP(rw, r)
+	})
+}
+
+// func SaveToDynamo() {
+
+// 	//-----------------------------------------------
+// 	svc := dynamodb.New(session.New())
+// 	input := &dynamodb.PutItemInput{
+// 		Item: map[string]*dynamodb.AttributeValue{
+// 			"AlbumTitle": {
+// 				S: aws.String("Somewhat Famous"),
+// 			},
+// 			"Artist": {
+// 				S: aws.String("No One You Know"),
+// 			},
+// 			"SongTitle": {
+// 				S: aws.String("Call Me Today"),
+// 			},
+// 		},
+// 		ReturnConsumedCapacity: aws.String("TOTAL"),
+// 		TableName:              aws.String("Music"),
+// 	}
+
+// 	result, err := svc.PutItem(input)
+// }
