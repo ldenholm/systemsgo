@@ -21,8 +21,13 @@ func main() {
 	// ServeMux provided by Gorilla
 	sm := mux.NewRouter()
 
-	getRouter := sm.Methods("GET").Subrouter()
+	// GET Router
+	getRouter := sm.Methods(http.MethodGet).Subrouter()
 	getRouter.HandleFunc("/products", product.GetProducts)
+
+	// PUT Router
+	putRouter := sm.Methods(http.MethodPut).Subrouter()
+	putRouter.HandleFunc("/{id:[0-9]+}", product.UpdateProducts)
 
 	// Assign Handlers
 	sm.Handle("/", defaultHandler)
