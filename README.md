@@ -44,7 +44,7 @@ go run main.go
             product.go
 ```
 
-## Todo
+## Areas to explore
 
-Circuit breaker, redis cache, dynamodb integration,
-service discovery, kubernetes?
+Circuit breaker, redis cache, ~~dynamodb integration~~,
+service discovery, kubernetes, gRPC, ES, Docker, NgInx.
