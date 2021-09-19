@@ -8,6 +8,12 @@ Ongoing project featuring microservice architecture, event sourcing pattern.
 git clone https://github.com/ldenholm/systemsgo
 ```
 
+## Run local NATS
+
+```sh
+docker run -p 4222:4222 -ti nats:latest
+```
+
 ## Build Docker image and run Docker container
 
 ```sh
