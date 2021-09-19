@@ -51,5 +51,6 @@ func (query *DbQuery) GetTables(rw http.ResponseWriter, r *http.Request) {
 	query.logger.Println("Handle GET Products")
 	tables := listTablesQueryHandler()
 
+	// currently needs a fix
 	rw.Write([]byte(tables))
 }
