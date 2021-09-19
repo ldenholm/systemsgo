@@ -9,8 +9,7 @@ import (
 
 	"github.com/gorilla/mux"
 	"github.com/ldenholm/systemsgo/data"
-	"github.com/ldenholm/systemsgo/repository.go"
-	//"github.com/ldenholm/systemsgo/repository"
+	"github.com/ldenholm/systemsgo/repository"
 )
 
 type Products struct {
