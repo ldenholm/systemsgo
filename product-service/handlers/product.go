@@ -9,6 +9,8 @@ import (
 
 	"github.com/gorilla/mux"
 	"github.com/ldenholm/systemsgo/data"
+	"github.com/ldenholm/systemsgo/repository.go"
+	//"github.com/ldenholm/systemsgo/repository"
 )
 
 type Products struct {
@@ -41,7 +43,12 @@ func (p *Products) AddProduct(rw http.ResponseWriter, r *http.Request) {
 	data.AddProduct(&prod)
 
 	// Add to dynamodb
+	result, err := repository.AddProduct(&prod)
+	if err != nil {
+		http.Error(rw, "Could not add to dynamodb", http.StatusInternalServerError)
+	}
 
+	p.logger.Println(result)
 }
 
 func (p Products) UpdateProducts(rw http.ResponseWriter, r *http.Request) {
