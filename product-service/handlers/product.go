@@ -21,15 +21,15 @@ func NewProducts(l *log.Logger) *Products {
 	return &Products{l}
 }
 
-// Convert list to json using json encoding
+// Get Products
 func (p *Products) GetProducts(rw http.ResponseWriter, req *http.Request) {
 	p.logger.Println("Handle GET Products")
 
 	// fetch the products from the datastore
-	lp := data.GetProducts()
+	products := data.GetProducts()
 
 	// serialize the list to JSON
-	err := lp.ToJSON(rw)
+	err := products.ToJSON(rw)
 	if err != nil {
 		http.Error(rw, "Unable to marshal json", http.StatusInternalServerError)
 	}

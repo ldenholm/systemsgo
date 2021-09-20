@@ -15,6 +15,7 @@ import (
 var ErrProductNotFound = fmt.Errorf("Product not found")
 
 // Product struct for API resource
+// Replace these with protobuffs?
 type Product struct {
 	ID          int     `json:"id"`
 	Name        string  `json:"name" validate:"required"`

@@ -12,11 +12,16 @@ import (
 	"github.com/ldenholm/systemsgo/handlers"
 )
 
+// Members
+
 func main() {
 
-	l := log.New(os.Stdout, "product-api", log.LstdFlags)
-	repo := handlers.NewDbQuery(l)
-	product := handlers.NewProducts(l)
+	// Create logger
+	logger := log.New(os.Stdout, "product-api", log.LstdFlags)
+
+	// Setup Handlers
+	repo := handlers.NewDbQuery(logger)
+	product := handlers.NewProducts(logger)
 
 	// ServeMux provided by Gorilla
 	sm := mux.NewRouter()
@@ -51,7 +56,7 @@ func main() {
 	go func() {
 		err := server.ListenAndServe()
 		if err != nil {
-			l.Fatal(err)
+			logger.Fatal(err)
 		}
 	}()
 
@@ -62,7 +67,7 @@ func main() {
 	signal.Notify(sigChannel, os.Kill)
 
 	sig := <-sigChannel
-	l.Println("Shutdown received, gracefully shutting down", sig)
+	logger.Println("Shutdown received, gracefully shutting down", sig)
 
 	timeout, _ := context.WithTimeout(context.Background(), 30*time.Second)
 	// Graceful shutdown

@@ -10,30 +10,31 @@ import (
 	"github.com/ldenholm/systemsgo/data"
 )
 
-func initSession() {
-
-}
-
-// dynamodb repository crud
-func AddProduct(p *data.Product) (string, error) {
+func initSession() *session.Session {
 	sess := session.Must(session.NewSessionWithOptions(session.Options{
 		SharedConfigState: session.SharedConfigEnable,
 	}))
 
+	return sess
+}
+
+// dynamodb repository crud
+func AddProduct(p *data.Product) (string, error) {
+	sess := initSession()
 	// Create DynamoDB client
 	svc := dynamodb.New(sess)
 
+	// Build attributes
 	attVal, err := dynamodbattribute.MarshalMap(p)
 	if err != nil {
 		log.Fatalf("Got error marshalling new movie item: %s", err)
 	}
 
-	// Create item in table Movies
-	table := "products"
-
+	// Create item in table products
+	//table := "products"
 	input := &dynamodb.PutItemInput{
 		Item:      attVal,
-		TableName: aws.String(table),
+		TableName: aws.String("products"),
 	}
 
 	_, err = svc.PutItem(input)
@@ -41,7 +42,7 @@ func AddProduct(p *data.Product) (string, error) {
 		log.Printf("Got error calling PutItem: %s", err)
 	}
 
-	result := ("Successfully added '" + p.Name + "' to table " + table)
+	result := ("Successfully added '" + p.Name + "' to products")
 
 	return result, err
 
