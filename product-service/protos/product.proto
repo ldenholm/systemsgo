@@ -1,15 +1,19 @@
 syntax = "proto3";
 package protos;
 
+option go_package = "./protos";
+
 service Products {
-        rpc GetPrice(PriceRequest) returns (PriceResponse) 
+        rpc GetPrice(PriceRequest) returns (PriceResponse);
 }
 
 message PriceRequest {
-        int ID = 1;
-        float32 Price = 2;
+        int32 ID = 1;
+        int32 Price = 2;
 }
 
+
+
 message PriceResponse {
-        float32 Price = 1;
+        float Price = 1;
 }
