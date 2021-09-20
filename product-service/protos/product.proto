@@ -1,7 +1,15 @@
 syntax = "proto3";
 package protos;
 
-message Product {
-        string id = 1;
-        string name = 2;
+service Products {
+        rpc GetPrice(PriceRequest) returns (PriceResponse) 
+}
+
+message PriceRequest {
+        int ID = 1;
+        float32 Price = 2;
+}
+
+message PriceResponse {
+        float32 Price = 1;
 }
