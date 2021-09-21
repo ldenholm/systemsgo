@@ -54,3 +54,19 @@ go run main.go
 
 Circuit breaker, redis cache, ~~dynamodb integration~~,
 service discovery, kubernetes, gRPC, ES, Docker, NgInx.
+
+### CI Things
+
+Multi-step process
+
+![image](https://user-images.githubusercontent.com/47731607/134104063-1208a7c7-2b65-4210-ae95-64c6dccf8e36.png)
+
+
+
+_Example build pipeline for a gRPC service_
+
+![image](https://user-images.githubusercontent.com/47731607/134103895-49543677-2391-4947-a1f1-2b24b3f12c12.png)
+
+
+
+Glide: Vendor Package Management for Golang: https://github.com/Masterminds/glide
