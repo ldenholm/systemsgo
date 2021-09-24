@@ -52,8 +52,8 @@ go run main.go
 
 ## Areas to explore
 
-Circuit breaker, redis cache, ~~dynamodb integration~~,
-service discovery, kubernetes, gRPC, ES, Docker, NgInx.
+circuit breaker, redis cache, ~~dynamodb integration~~,
+service discovery, transports protobuf/gRPC, ci (docker compose + ecs)
 
 ### CI Things
 
